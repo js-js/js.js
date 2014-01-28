@@ -1,0 +1,34 @@
+{
+  "name": "js.js",
+  "version": "0.0.0",
+  "description": "JS JIT Compiler",
+  "main": "lib/js.js",
+  "scripts": {
+    "test": "mocha --reporter=spec test/*-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:indutny/js.js"
+  },
+  "keywords": [
+    "JIT",
+    "JS"
+  ],
+  "author": "Fedor Indutny <fedor@indutny.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/indutny/js.js/issues"
+  },
+  "homepage": "https://github.com/indutny/js.js",
+  "dependencies": {
+    "ssa-ir": "~0.3.3",
+    "ssa.js": "~0.2.1",
+    "linearscan": "~0.3.4",
+    "phi.js": "~0.1.4",
+    "jit.js": "~0.7.0",
+    "esprima": "~1.0.4",
+    "mmap": "~2.0.2",
+    "weak": "~0.3.0",
+    "ref": "~0.1.3"
+  }
+}
