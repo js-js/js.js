@@ -7,8 +7,8 @@ describe('js.js API', function() {
     r = js.create();
   });
 
-  it('should compile code', function() {
-    var fn = r.compile('1 + 1');
-    assert.equal(fn.call([]).cast().value(), 2);
+  it('should compile basic binary expression', function() {
+    var fn = r.compile('1 + 2 + 3');
+    assert.equal(fn.call([]).cast().value(), 6);
   });
 });
