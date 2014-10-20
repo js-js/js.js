@@ -22,7 +22,7 @@
   "homepage": "https://github.com/indutny/js.js",
   "dependencies": {
     "esprima": "~1.2.2",
-    "heap.js": "^0.2.0",
+    "heap.js": "^0.2.3",
     "jit.js": "~0.7.0",
     "linearscan": "~0.3.9",
     "mmap": "~2.0.2",

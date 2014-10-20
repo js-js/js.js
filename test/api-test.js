@@ -9,6 +9,6 @@ describe('js.js API', function() {
 
   it('should compile code', function() {
     var fn = r.compile('1 + 1');
-    assert.equal(fn.call([]), 2);
+    assert.equal(fn.call([]).cast().value(), 2);
   });
 });
