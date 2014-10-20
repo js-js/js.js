@@ -8,7 +8,7 @@ describe('js.js API', function() {
   });
 
   it('should compile basic binary expression', function() {
-    var fn = r.compile('1 + 2 + 3');
-    assert.equal(fn.call([]).cast().value(), 6);
+    var fn = r.compile('(1 + 2) + (3 + 4)');
+    assert.equal(fn.call([]).cast().value(), 10);
   });
 });
