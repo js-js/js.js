@@ -49,8 +49,6 @@ describe('js.js API', function() {
     });
   });
 
-  // TODO(indutny): enable after allocation will be implemented
-  return;
   describe('allocator', function() {
     it('should allocate object', function() {
       var fn = r.compile('var a = {};a.x = "ok";a.x');
