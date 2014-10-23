@@ -28,7 +28,7 @@
     "mmap": "~2.0.2",
     "phi.js": "~0.1.4",
     "ssa-ir": "~0.3.3",
-    "ssa.js": "~0.6.0",
+    "ssa.js": "~0.7.0",
     "weak": "~0.3.0"
   },
   "devDependencies": {
