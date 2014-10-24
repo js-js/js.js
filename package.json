@@ -24,7 +24,7 @@
     "esprima": "~1.2.2",
     "heap.js": "^0.5.0",
     "jit.js": "~0.8.0",
-    "linearscan": "~0.3.9",
+    "linearscan": "~0.4.0",
     "phi.js": "~0.1.4",
     "ssa-ir": "~0.3.3",
     "ssa.js": "~0.7.0",
