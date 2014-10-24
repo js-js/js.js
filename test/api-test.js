@@ -41,6 +41,13 @@ describe('js.js API', function() {
       assert.equal(res.toString(), 'oook');
     });
 
+    it('should do global undefined load', function() {
+      var fn = r.compile('ohai');
+      r.heap.gc();
+      var res = fn.call(null, []);
+      assert(r.heap.isUndef(res));
+    });
+
     it('should do math with globals', function() {
       var fn = r.compile('var a = 1, b = 2, c = 3; (a + c)  + (b + c)');
       r.heap.gc();
