@@ -64,4 +64,28 @@ describe('js.js API', function() {
       assert.equal(res.toString(), 'ok');
     });
   });
+
+  describe('control flow', function() {
+    it('should compile conditional', function() {
+      var fn = r.compile('true ? 1 + 2 : 3 + 4');
+      r.heap.gc();
+      var res = fn.call(null, []).cast();
+      assert.equal(res.value(), 3);
+
+      var fn = r.compile('false ? 1 + 2 : 3 + 4');
+      r.heap.gc();
+      var res = fn.call(null, []).cast();
+      assert.equal(res.value(), 7);
+
+      var fn = r.compile('123 ? 1 + 2 : 3 + 4');
+      r.heap.gc();
+      var res = fn.call(null, []).cast();
+      assert.equal(res.value(), 3);
+
+      var fn = r.compile('0 ? 1 + 2 : 3 + 4');
+      r.heap.gc();
+      var res = fn.call(null, []).cast();
+      assert.equal(res.value(), 7);
+    });
+  });
 });
