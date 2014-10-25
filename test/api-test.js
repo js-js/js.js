@@ -20,6 +20,14 @@ describe('js.js API', function() {
       assert.equal(fn.call(null, []).cast().value(), -1);
     });
 
+    it('should do basic binary with spills', function() {
+      var fn = r.compile('1 + (2 + (3 + (4 + (5 + (6 + ' +
+                         '(7 + (8 + (9 + (10 + (11 + (12 + ' +
+                         '(13 + 14))))))))))))');
+      r.heap.gc();
+      assert.equal(fn.call(null, []).cast().value(), 105);
+    });
+
     it('should do string literal', function() {
       var fn = r.compile('"okish"');
       r.heap.gc();
@@ -115,10 +123,18 @@ describe('js.js API', function() {
   describe('functions', function() {
     it('should alloc and call function', function() {
       var fn = r.compile('function sum(a, b, c) { return a + b + c; };' +
-                         'sum(1, 2, 3)');
+                         'sum(1 + 1, 2 + 2, 3 + 3)');
       r.heap.gc();
       var res = fn.call(null, []).cast();
-      assert.equal(res.value(), 6);
+      assert.equal(res.value(), 12);
+    });
+
+    it('should return undefined for argv OOB', function() {
+      var fn = r.compile('function sum(a, b, c) { return c; };' +
+                         'sum(1, 2)');
+      r.heap.gc();
+      var res = fn.call(null, []);
+      assert(r.heap.isUndef(res));
     });
   });
 });
