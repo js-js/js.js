@@ -3,17 +3,21 @@ var js = require('../');
 
 var heap = require('heap.js');
 
+var options = {
+  trace: process.env.JS_TRACE
+};
+
 describe('js.js API', function() {
   var r;
   beforeEach(function() {
-    r = js.create();
+    r = js.create(options);
   });
 
   describe('basics', function() {
     it('should do basic binary expression', function() {
-      var fn = r.compile('(1 + 2) + (3 + 4)');
+      var fn = r.compile('(1 * 2) + (3 - 6)');
       r.heap.gc();
-      assert.equal(fn.call(null, []).cast().value(), 10);
+      assert.equal(fn.call(null, []).cast().value(), -1);
     });
 
     it('should do string literal', function() {
@@ -93,6 +97,16 @@ describe('js.js API', function() {
       r.heap.gc();
       var res = fn.call(null, []).cast();
       assert.equal(res.value(), 1001);
+    });
+  });
+
+  describe('functions', function() {
+    it('should alloc and call function', function() {
+      var fn = r.compile('function sum(a, b, c) { return a + b + c; };' +
+                         'sum(1, 2, 3)');
+      r.heap.gc();
+      var res = fn.call(null, []).cast();
+      assert.equal(res.value(), 6);
     });
   });
 });
