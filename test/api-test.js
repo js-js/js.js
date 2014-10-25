@@ -107,6 +107,18 @@ describe('js.js API', function() {
       assert.equal(res.value(), 1001);
     });
 
+    it('should compile local for loop', function() {
+      var fn = r.compile('function run() {' +
+                         '  for (var i = 0; i < 1000000; i++) {};' +
+                         '  return i;' +
+                         '}' +
+                         'run()');
+      r.heap.gc();
+      var res = fn.call(null, []).cast();
+      assert.equal(res.value(), 1000001);
+    });
+
+
     it('should compile global nested for loop', function() {
       var fn = r.compile('var k = 0;' +
                          'for (var i = 0; i < 10; i++) {' +
