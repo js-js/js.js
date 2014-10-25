@@ -11,8 +11,24 @@ var rl = readline.createInterface({
 rl.setPrompt('> ');
 rl.prompt();
 
+var buffer = '';
+
 rl.on('line', function(line) {
-  var val = js.compile(line).call().cast();
-  console.log(util.inspect(val.toJSON()));
+  try {
+    var val = js.compile(buffer + line).call().cast();
+  } catch (e) {
+    if (!/Unexpected/.test(e.message))
+      throw e;
+
+    rl.setPrompt('... ');
+    rl.prompt();
+
+    buffer += line;
+    return;
+  }
+  console.log(util.inspect(val.toJSON(), false, null, true));
+
+  buffer = '';
+  rl.setPrompt('> ');
   rl.prompt();
 });
