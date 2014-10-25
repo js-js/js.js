@@ -87,5 +87,12 @@ describe('js.js API', function() {
       var res = fn.call(null, []).cast();
       assert.equal(res.value(), 7);
     });
+
+    it('should compile global for loop', function() {
+      var fn = r.compile('for (var i = 0; i < 1000; i++) {}; i');
+      r.heap.gc();
+      var res = fn.call(null, []).cast();
+      assert.equal(res.value(), 1001);
+    });
   });
 });
