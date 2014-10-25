@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+var js = require('../').create();
+
+var util = require('util');
+var readline = require('readline');
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+rl.setPrompt('> ');
+rl.prompt();
+
+rl.on('line', function(line) {
+  var val = js.compile(line).call().cast();
+  console.log(util.inspect(val.toJSON()));
+  rl.prompt();
+});

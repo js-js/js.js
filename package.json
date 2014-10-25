@@ -2,6 +2,9 @@
   "name": "js.js",
   "version": "0.0.0",
   "description": "JS JIT Compiler",
+  "bin": {
+    "js.js": "bin/js"
+  },
   "main": "lib/js.js",
   "scripts": {
     "test": "mocha --reporter=spec test/*-test.js"
