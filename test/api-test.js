@@ -98,6 +98,18 @@ describe('js.js API', function() {
       var res = fn.call(null, []).cast();
       assert.equal(res.value(), 1001);
     });
+
+    it('should compile global nested for loop', function() {
+      var fn = r.compile('var k = 0;' +
+                         'for (var i = 0; i < 10; i++) {' +
+                         '  for (var j = 0; j < 10; j++) {' +
+                         '    k++;' +
+                         '  }' +
+                         '}; k');
+      r.heap.gc();
+      var res = fn.call(null, []).cast();
+      assert.equal(res.value(), 121);
+    });
   });
 
   describe('functions', function() {
