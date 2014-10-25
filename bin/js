@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-var js = require('../').create();
+var js = require('../').create({
+  trace: process.env.JS_TRACE
+});
 
 var util = require('util');
 var readline = require('readline');

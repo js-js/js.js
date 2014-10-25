@@ -4,7 +4,8 @@ var js = require('../');
 var heap = require('heap.js');
 
 var options = {
-  trace: process.env.JS_TRACE
+  trace: process.env.JS_TRACE,
+  brk: process.env.JS_BRK
 };
 
 describe('js.js API', function() {
@@ -78,6 +79,24 @@ describe('js.js API', function() {
   });
 
   describe('control flow', function() {
+    it('should compile empirenode example', function() {
+      var fn = r.compile(
+        'function test(a, b) {' +
+        '  var r;' +
+        '  if (a < b) {' +
+        '    r = 1;' +
+        '  } else {' +
+        '    r = 2;' +
+        '  }' +
+        '  return r;' +
+        '}' +
+        'test(3, 2);'
+      );
+      r.heap.gc();
+      var res = fn.call(null, []).cast();
+      assert.equal(res.value(), 2);
+    });
+
     it('should compile conditional', function() {
       var fn = r.compile('true ? 1 + 2 : 3 + 4');
       r.heap.gc();
