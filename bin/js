@@ -1,10 +1,22 @@
 #!/usr/bin/env node
+var fs = require('fs');
 var js = require('../').create({
-  trace: process.env.JS_TRACE
+  trace: process.env.JS_TRACE,
+  brk: process.env.JS_BRK
 });
 
 var util = require('util');
 var readline = require('readline');
+
+// ./bin/js script.js
+if (process.argv[2]) {
+  var src = fs.readFileSync(process.argv[2]).toString('');
+  var res = js.compile(src).call().cast();
+  console.log(util.inspect(res.toJSON(), false, null, true));
+  return;
+}
+
+// REPL
 
 var rl = readline.createInterface({
   input: process.stdin,
