@@ -28,9 +28,9 @@
     "heap.js": "^0.6.0",
     "jit.js": "~0.8.0",
     "linearscan": "~0.4.0",
-    "phi.js": "~0.1.4",
-    "ssa-ir": "~0.3.3",
-    "ssa.js": "~0.7.0",
+    "cfg.js": "^0.8.0",
+    "cfg-ir": "^0.4.0",
+    "ssa.js": "^0.8.0",
     "weak": "~0.3.0"
   },
   "devDependencies": {
