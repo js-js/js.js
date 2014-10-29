@@ -2,6 +2,11 @@
 
 JavaScript JIT written in JavaScript.
 
+## Community
+
+Join #jit.js IRC channel on freenode to share your thoughts on the project with
+the team!
+
 ## Description
 
 TBD
