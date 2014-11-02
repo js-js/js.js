@@ -132,25 +132,25 @@ describe('js.js API', function() {
       assert.equal(res.value(), 3);
 
       var fn = compile(function() {
-        false ? 1 + 2 : 3 + 4;
+        false ? 5 + 6 : 7 + 8;
       });
       r.heap.gc();
       var res = fn.call(null, []).cast();
-      assert.equal(res.value(), 7);
+      assert.equal(res.value(), 15);
 
       var fn = compile(function() {
-        123 ? 1 + 2 : 3 + 4;
+        123 ? 9 + 10 : 11 + 12;
       });
       r.heap.gc();
       var res = fn.call(null, []).cast();
-      assert.equal(res.value(), 3);
+      assert.equal(res.value(), 19);
 
       var fn = compile(function() {
-        0 ? 1 + 2 : 3 + 4;
+        0 ? 12 + 13 : 14 + 15;
       });
       r.heap.gc();
       var res = fn.call(null, []).cast();
-      assert.equal(res.value(), 7);
+      assert.equal(res.value(), 29);
     });
 
     it('should compile global for loop', function() {
