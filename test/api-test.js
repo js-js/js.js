@@ -155,12 +155,12 @@ describe('js.js API', function() {
 
     it('should compile global for loop', function() {
       var fn = compile(function() {
-        for (var i = 0; i < 1000; i++) {};
+        for (var i = 0; i < 1000000; i++) {};
         i;
       });
       r.heap.gc();
       var res = fn.call(null, []).cast();
-      assert.equal(res.value(), 1000);
+      assert.equal(res.value(), 1000000);
     });
 
     it('should compile local for loop', function() {
