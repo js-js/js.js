@@ -30,7 +30,7 @@
     "esprima": "~1.2.2",
     "heap.js": "^0.10.0",
     "jit.js": "^0.8.15",
-    "linearscan": "^0.4.9",
+    "linearscan": "^0.5.0",
     "ssa.js": "^0.8.0",
     "weak": "^0.3.0"
   },
