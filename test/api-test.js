@@ -220,6 +220,17 @@ describe('js.js API', function() {
       assert.equal(res.value(), 12);
     });
 
+    it('should alloc and call anonymous function', function() {
+      var fn = compile(function() {
+        (function () {
+          return 1;
+        })();
+      });
+      r.heap.gc();
+      var res = fn.call(null, []).cast();
+      assert.equal(res.value(), 1);
+    });
+
     it('should return undefined for argv OOB', function() {
       var fn = compile(function() {
         function third(a, b, c) {
