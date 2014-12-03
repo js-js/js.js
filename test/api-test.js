@@ -20,12 +20,18 @@ describe('js.js API', function() {
   }
 
   describe('basics', function() {
-    it('should do basic binary expression', function() {
-      var fn = compile(function() {
-        (1 * 2) + (3 - 6);
-      });
+   it('should do basic unary expression', function() {
+      var fn = compile(function() { -1 });
       r.heap.gc();
       assert.equal(fn.call(null, []).cast().value(), -1);
+    });
+
+    it('should do basic binary expression', function() {
+      var fn = compile(function() {
+        (1 * 2) + (-3 - 6);
+      });
+      r.heap.gc();
+      assert.equal(fn.call(null, []).cast().value(), -7);
     });
 
     it('should do basic binary with spills', function() {
