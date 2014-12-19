@@ -304,5 +304,53 @@ describe('js.js API', function() {
       var res = fn.call(null, []).cast();
       assert(res.value(), 120);
     });
+
+    describe('new call', function() {
+      it('should construct with 2-args', function() {
+        var fn = compile(function() {
+          function A(a0, a1, a2) {
+            this.a0 = a0;
+            this.a1 = a1;
+            this.a2 = a2;
+          }
+          A.prototype.x = 100;
+          a = new A(1, 2);
+          a.x + a.a0 + a.a1
+        });
+        r.heap.gc();
+        var res = fn.call(null, []).cast();
+        assert(res.value(), 103);
+      });
+
+      it('should construct with 3-args', function() {
+        var fn = compile(function() {
+          function A(a0, a1, a2) {
+            this.a0 = a0;
+            this.a1 = a1;
+            this.a2 = a2;
+          }
+          A.prototype.x = 100;
+          a = new A(1, 2, 3);
+          a.x + a.a0 + a.a1 + a.a2
+        });
+        r.heap.gc();
+        var res = fn.call(null, []).cast();
+        assert(res.value(), 106);
+      });
+
+      it('should evolve proto', function() {
+        var fn = compile(function() {
+          function A() {
+          }
+          A.prototype.x = 40;
+          a = new A();
+          A.prototype.y = 2;
+          a.x + a.y
+        });
+        r.heap.gc();
+        var res = fn.call(null, []).cast();
+        assert(res.value(), 42);
+      });
+    });
   });
 });
