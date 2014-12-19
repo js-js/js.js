@@ -226,6 +226,18 @@ describe('js.js API', function() {
       assert.equal(res.value(), 12);
     });
 
+    it('should alloc and nested call function', function() {
+      var fn = compile(function() {
+        function sum(a, b) {
+          return a + b;
+        }
+        sum(sum(1, 2), sum(3, 4))
+      });
+      r.heap.gc();
+      var res = fn.call(null, []).cast();
+      assert.equal(res.value(), 10);
+    });
+
     it('should alloc and call anonymous function', function() {
       var fn = compile(function() {
         (function () {
