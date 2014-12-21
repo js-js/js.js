@@ -353,4 +353,33 @@ describe('js.js API', function() {
       });
     });
   });
+
+  describe('accessor', function() {
+    it('should call getter/setter', function() {
+      var getter = compile(function() {
+        (function() {
+          return 123000;
+        });
+      }).call(null, []);
+      var setter = compile(function() {
+        (function(value) {
+          this.another = value;
+        });
+      }).call(null, []);
+      r.heap.gc();
+
+      var obj = r.heap.allocObject();
+      var access = r.heap.allocAccessPair({ getter: getter, setter: setter });
+      obj.set(r.heap.allocString('some'), access);
+
+      var global = r.heap.context.global().cast();
+      global.set(r.heap.allocString('obj'), obj);
+
+      var fn = compile(function() {
+        obj.some = 456;
+        obj.some + obj.another;
+      });
+      assert(fn.call(null, []).cast().value(), 123456);
+    });
+  });
 });
