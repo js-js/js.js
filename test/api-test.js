@@ -64,7 +64,7 @@ describe('js.js API', function() {
 
   describe('global', function() {
     it('should do global fetch', function() {
-      var global = r.heap.context.global().cast();
+      var global = r.heap.state.global().cast();
       global.set(r.heap.allocString('ohai'), r.heap.allocString('ok'));
 
       var fn = compile(function() { ohai; });
@@ -416,7 +416,7 @@ describe('js.js API', function() {
       var access = r.heap.allocAccessPair({ getter: getter, setter: setter });
       obj.set(r.heap.allocString('some'), access);
 
-      var global = r.heap.context.global().cast();
+      var global = r.heap.state.global().cast();
       global.set(r.heap.allocString('obj'), obj);
 
       var fn = compile(function() {
