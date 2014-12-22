@@ -351,6 +351,21 @@ describe('js.js API', function() {
         var res = fn.call(null, []).cast();
         assert(res.value(), 42);
       });
+
+      it('should support proto chains', function() {
+        var fn = compile(function() {
+          function A() {}
+          A.prototype.aprop = 40;
+          function B() {}
+          B.prototype = new A();
+          B.prototype.bprop = 2;
+          var b = new B();
+          b.aprop + b.bprop
+        });
+        r.heap.gc();
+        var res = fn.call(null, []).cast();
+        assert(res.value(), 42);
+      });
     });
   });
 
