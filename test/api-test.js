@@ -366,6 +366,35 @@ describe('js.js API', function() {
         var res = fn.call(null, []).cast();
         assert(res.value(), 42);
       });
+
+      it('should support instanceof', function() {
+        var fn = compile(function() {
+          function A() {}
+          var a = new A();
+          a instanceof A
+        });
+        r.heap.gc();
+        assert.equal(fn.call().cast().value(), true);
+
+        var fn = compile(function() {
+          function A() {}
+          function B() {}
+          var a = new A();
+          a instanceof B
+        });
+        r.heap.gc();
+        assert.equal(fn.call().cast().value(), false);
+
+        var fn = compile(function() {
+          function A() {}
+          function B() {}
+          B.prototype = new A();
+          var a = new B();
+          a instanceof A
+        });
+        r.heap.gc();
+        assert.equal(fn.call().cast().value(), true);
+      });
     });
   });
 
