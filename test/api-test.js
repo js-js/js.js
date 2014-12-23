@@ -15,13 +15,13 @@ describe('js.js API', function() {
   });
 
   function compile(code) {
-    var input = code.toString().replace(/^function[^{]*{|}$/g, '')
+    var input = code.toString().replace(/^function[^{]*{|}$/g, '');
     return r.compile(input);
   }
 
   describe('basics', function() {
    it('should do basic unary expression', function() {
-      var fn = compile(function() { -1 });
+      var fn = compile(function() { -1; });
       r.heap.gc();
       assert.equal(fn.call(null, []).cast().value(), -1);
     });
@@ -429,7 +429,7 @@ describe('js.js API', function() {
 
   describe('context variables', function() {
     it('should support setting/getting', function() {
-      var fn= compile(function() {
+      var fn = compile(function() {
         function inner() {
           var x = 1;
           return function outer() {
