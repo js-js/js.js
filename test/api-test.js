@@ -426,4 +426,24 @@ describe('js.js API', function() {
       assert(fn.call(null, []).cast().value(), 123456);
     });
   });
+
+  describe('context variables', function() {
+    it('should support setting/getting', function() {
+      var fn= compile(function() {
+        function inner() {
+          var x = 1;
+          return function outer() {
+            return x++;
+          };
+        }
+
+        var fn = inner();
+        fn();
+        fn();
+      });
+      r.heap.gc();
+
+      assert(fn.call(null, []).cast().value(), 2);
+    });
+  });
 });
