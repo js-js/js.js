@@ -47,12 +47,32 @@ describe('js.js API', function() {
     it('should do basic binary logic', function() {
       var fn = compile(function() { 1 < 2; });
       assert.equal(fn.call(null, []).cast().value(), true);
-      var fn = compile(function() { 2 < 2; });
+      fn = compile(function() { 2 < 2; });
       assert.equal(fn.call(null, []).cast().value(), false);
-      var fn = compile(function() { 2 <= 2; });
+      fn = compile(function() { 2 <= 2; });
       assert.equal(fn.call(null, []).cast().value(), true);
-      var fn = compile(function() { 3 <= 2; });
+      fn = compile(function() { 3 <= 2; });
       assert.equal(fn.call(null, []).cast().value(), false);
+
+      fn = compile(function() { 1 > 2; });
+      assert.equal(fn.call(null, []).cast().value(), false);
+      fn = compile(function() { 3 > 2; });
+      assert.equal(fn.call(null, []).cast().value(), true);
+      fn = compile(function() { 2 >= 2; });
+      assert.equal(fn.call(null, []).cast().value(), true);
+      fn = compile(function() { 3 >= 2; });
+      assert.equal(fn.call(null, []).cast().value(), true);
+      fn = compile(function() { 1 >= 2; });
+      assert.equal(fn.call(null, []).cast().value(), false);
+
+      fn = compile(function() { 1 == 2; });
+      assert.equal(fn.call(null, []).cast().value(), false);
+      fn = compile(function() { 2 == 2; });
+      assert.equal(fn.call(null, []).cast().value(), true);
+      fn = compile(function() { 2 != 2; });
+      assert.equal(fn.call(null, []).cast().value(), false);
+      fn = compile(function() { 3 != 2; });
+      assert.equal(fn.call(null, []).cast().value(), true);
     });
 
     it('should do string literal', function() {
