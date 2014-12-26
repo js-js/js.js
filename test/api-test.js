@@ -78,7 +78,7 @@ describe('js.js API', function() {
     it('should do string literal', function() {
       var fn = compile(function() { "okish"; });
       r.heap.gc();
-      assert.equal(fn.call(null, []).cast().toString(), 'okish');
+      assert.equal(fn.call(null, []).cast().value(), 'okish');
     });
   });
 
@@ -90,14 +90,14 @@ describe('js.js API', function() {
       var fn = compile(function() { ohai; });
       r.heap.gc();
       var res = fn.call(null, []).cast();
-      assert.equal(res.toString(), 'ok');
+      assert.equal(res.value(), 'ok');
     });
 
     it('should do global store', function() {
       var fn = compile(function() { ohai = "oook"; ohai; });
       r.heap.gc();
       var res = fn.call(null, []).cast();
-      assert.equal(res.toString(), 'oook');
+      assert.equal(res.value(), 'oook');
     });
 
     it('should do global undefined load', function() {
@@ -127,7 +127,7 @@ describe('js.js API', function() {
       });
       r.heap.gc();
       var res = fn.call(null, []).cast();
-      assert.equal(res.toString(), 'ok');
+      assert.equal(res.value(), 'ok');
     });
   });
 
